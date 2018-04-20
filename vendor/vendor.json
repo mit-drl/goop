@@ -1,0 +1,41 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "ySaT8G3I3y4MmnoXOYAAX0rC+p8=",
+			"origin": "github.com/wallarelvo/rs/vendor/github.com/sirupsen/logrus",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "e4cb3564a5e7d75808918a0674a12ad62ea8460e",
+			"revisionTime": "2018-04-19T18:49:13Z"
+		},
+		{
+			"checksumSHA1": "VIsQ38XbZlzkEiT6hDcI1m2rQ9M=",
+			"path": "github.com/wallarelvo/rs/mip",
+			"revision": "e4cb3564a5e7d75808918a0674a12ad62ea8460e",
+			"revisionTime": "2018-04-19T18:49:13Z"
+		},
+		{
+			"checksumSHA1": "6U7dCaxxIMjf5V02iWgyAwppczw=",
+			"origin": "github.com/wallarelvo/rs/vendor/golang.org/x/crypto/ssh/terminal",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "e4cb3564a5e7d75808918a0674a12ad62ea8460e",
+			"revisionTime": "2018-04-19T18:49:13Z"
+		},
+		{
+			"checksumSHA1": "uggjqMBFNJd11oNco2kbkAT641w=",
+			"origin": "github.com/wallarelvo/rs/vendor/golang.org/x/sys/unix",
+			"path": "golang.org/x/sys/unix",
+			"revision": "e4cb3564a5e7d75808918a0674a12ad62ea8460e",
+			"revisionTime": "2018-04-19T18:49:13Z"
+		},
+		{
+			"checksumSHA1": "eQq+ZoTWPjyizS9XalhZwfGjQao=",
+			"origin": "github.com/wallarelvo/rs/vendor/golang.org/x/sys/windows",
+			"path": "golang.org/x/sys/windows",
+			"revision": "e4cb3564a5e7d75808918a0674a12ad62ea8460e",
+			"revisionTime": "2018-04-19T18:49:13Z"
+		}
+	],
+	"rootPath": "github.com/mit-drl/goop"
+}

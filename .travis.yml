@@ -1,0 +1,12 @@
+sudo: required
+language: go
+
+go:
+    - 1.9
+
+install:
+    - source .travis/install_gurobi.sh
+    - ./install.sh
+
+script:
+    - go build ./mip/...

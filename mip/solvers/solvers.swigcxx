@@ -1,0 +1,18 @@
+%module solvers
+%{
+/* Includes the header in the wrapper code */
+#include "base_solver.hpp"
+#include "gurobi.hpp"
+%}
+
+/* Parse the header file to generate wrappers */
+%include <typemaps.i>
+%include "std_vector.i"
+%include "std_string.i"
+
+namespace std {
+    %template(DoubleVector) vector<double>;
+}
+
+%include "base_solver.hpp"
+%include "gurobi.hpp"
