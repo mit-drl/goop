@@ -53,17 +53,17 @@ func (c K) Mult(val float64) Expr {
 // LessEq returns a less than or equal to (<=) constraint between the
 // current expression and another
 func (c K) LessEq(other Expr) *Constr {
-	return LessThanEqual(c, other)
+	return LessEq(c, other)
 }
 
 // GreaterEq returns a greater than or equal to (>=) constraint between the
 // current expression and another
 func (c K) GreaterEq(other Expr) *Constr {
-	return GreaterThanEqual(c, other)
+	return GreaterEq(c, other)
 }
 
 // Eq returns an equality (==) constraint between the current expression
 // and another
 func (c K) Eq(other Expr) *Constr {
-	return Equal(c, other)
+	return Eq(c, other)
 }

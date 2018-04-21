@@ -2,7 +2,8 @@ package mip
 
 // Expr represents a linear general expression of the form
 // c0 * x0 + c1 * x1 + ... + cn * xn + k where ci are coefficients and xi are
-// variables and k is a constant
+// variables and k is a constant. This is a base interface that is implemented
+// by single variables, constants, and general linear expressions.
 type Expr interface {
 	// NumVars returns the number of variables in the expression
 	NumVars() int
@@ -37,62 +38,12 @@ type Expr interface {
 	Eq(e Expr) *Constr
 }
 
-type LinearExpr struct {
-	vars     []uint64
-	coeffs   []float64
-	constant float64
-}
-
 // NewExpr returns a new expression with a single additive constant value, c,
 // and no variables. Creating an expression like sum := NewExpr(0) is useful
 // for creating new empty expressions that you can perform operatotions on
 // later
 func NewExpr(c float64) Expr {
 	return &LinearExpr{constant: c}
-}
-
-func (e *LinearExpr) NumVars() int {
-	return len(e.vars)
-}
-
-func (e *LinearExpr) Vars() []uint64 {
-	return e.vars
-}
-
-func (e *LinearExpr) Coeffs() []float64 {
-	return e.coeffs
-}
-
-func (e *LinearExpr) Constant() float64 {
-	return e.constant
-}
-
-func (e *LinearExpr) Plus(other Expr) Expr {
-	e.vars = append(e.vars, other.Vars()...)
-	e.coeffs = append(e.coeffs, other.Coeffs()...)
-	e.constant += other.Constant()
-	return e
-}
-
-func (e *LinearExpr) Mult(c float64) Expr {
-	for i, coeff := range e.coeffs {
-		e.coeffs[i] = coeff * c
-	}
-	e.constant *= c
-
-	return e
-}
-
-func (e *LinearExpr) LessEq(other Expr) *Constr {
-	return LessThanEqual(e, other)
-}
-
-func (e *LinearExpr) GreaterEq(other Expr) *Constr {
-	return GreaterThanEqual(e, other)
-}
-
-func (e *LinearExpr) Eq(other Expr) *Constr {
-	return Equal(e, other)
 }
 
 func getVarsPtr(e Expr) *uint64 {
