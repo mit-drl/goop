@@ -26,7 +26,7 @@ package main
 import (
     "fmt"
     "github.com/mit-drl/goop/mip"
-	"github.com/mit-drl/goop/mip/solvers"
+    "github.com/mit-drl/goop/mip/solvers"
 )
 
 func main() {
