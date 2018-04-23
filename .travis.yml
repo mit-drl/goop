@@ -10,4 +10,4 @@ install:
 
 script:
     - go build -tags pre_xenial
-    - go test -v -tags pre_xenial travis
+    - go test -v -tags="pre_xenial travis"
