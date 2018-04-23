@@ -9,4 +9,5 @@ mkdir -p .third_party/lpsolve
 cd .third_party
 wget $LP_SOLVE_URL
 tar -xzf $LP_SOLVE_TAR_NAME -C lpsolve
+sudo ln -sf $(pwd)/lpsolve/liblpsolve55.so /usr/lib/liblpsolve55.so
 cd -
