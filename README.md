@@ -95,10 +95,15 @@ govendor test -v +local
 
 # Solver Notes
 
-Currently we only support Gurobi. Since Gurobi is proprietary, you need to
-complete the following steps in order for the project to build
+We currently have bindings for Gurobi and LPSolve. Please follow the
+instructions below for using these specific solvers.
 
+## Gurobi
 - You must have [Gurobi](http://www.gurobi.com/downloads/download-center)
 installed and have a valid license.
 - The `GUROBI_HOME` environment variable must be set to the home directory
 of your Gurobi installation
+
+## LPSolve
+LPSolve is installed using the normal install procedure and should work out of
+the box.
