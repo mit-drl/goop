@@ -1,25 +1,25 @@
-package mip_test
+package goop_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/mit-drl/goop/mip"
-	"github.com/mit-drl/goop/mip/solvers"
+	"github.com/mit-drl/goop"
+	"github.com/mit-drl/goop/solvers"
 )
 
 func TestSimpleMIP(t *testing.T) {
-	m := mip.NewModel()
+	m := goop.NewModel()
 	m.ShowLog(true)
 	x := m.AddBinaryVar()
 	y := m.AddBinaryVar()
 	z := m.AddBinaryVar()
 
-	m.AddConstr(mip.Sum(x, y.Mult(2), z.Mult(3)).LessEq(mip.K(4)))
-	m.AddConstr(mip.Sum(x, y).GreaterEq(mip.One))
+	m.AddConstr(goop.Sum(x, y.Mult(2), z.Mult(3)).LessEq(goop.K(4)))
+	m.AddConstr(goop.Sum(x, y).GreaterEq(goop.One))
 
-	obj := mip.Sum(x, y, z.Mult(2))
-	m.SetObjective(obj, mip.SenseMaximize)
+	obj := goop.Sum(x, y, z.Mult(2))
+	m.SetObjective(obj, goop.SenseMaximize)
 	sol, err := m.Optimize(solvers.Gurobi)
 
 	if err != nil {
@@ -32,18 +32,18 @@ func TestSimpleMIP(t *testing.T) {
 }
 
 func TestSumRowsCols(t *testing.T) {
-	m := mip.NewModel()
+	m := goop.NewModel()
 	m.ShowLog(true)
 	rows := 4
 	cols := 4
 	vs := m.AddBinaryVarMatrix(rows, cols)
 
 	for i := 0; i < cols; i++ {
-		m.AddConstr(mip.SumCol(vs, i).Eq(mip.One))
+		m.AddConstr(goop.SumCol(vs, i).Eq(goop.One))
 	}
 
 	for i := 0; i < rows; i++ {
-		m.AddConstr(mip.SumRow(vs, i).Eq(mip.One))
+		m.AddConstr(goop.SumRow(vs, i).Eq(goop.One))
 	}
 
 	sol, err := m.Optimize(solvers.Gurobi)
@@ -55,7 +55,7 @@ func TestSumRowsCols(t *testing.T) {
 	fmt.Println(prettyPrintVarMatrix(vs, sol))
 }
 
-func prettyPrintVarMatrix(vs [][]*mip.Var, sol *mip.Solution) string {
+func prettyPrintVarMatrix(vs [][]*goop.Var, sol *goop.Solution) string {
 	rows := len(vs)
 	cols := len(vs[0])
 

@@ -1,4 +1,4 @@
-package mip
+package goop
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/mit-drl/goop/mip/solvers"
+	"github.com/mit-drl/goop/solvers"
 )
 
 // Model represents the overall constrained linear optimization model to be

@@ -9,4 +9,4 @@ install:
     - ./install.sh
 
 script:
-    - go build ./mip/...
+    - go build

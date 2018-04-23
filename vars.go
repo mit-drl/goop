@@ -1,4 +1,4 @@
-package mip
+package goop
 
 // Var represnts a variable in a optimization problem. The variable is
 // identified with an uint64.

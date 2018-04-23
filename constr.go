@@ -1,4 +1,4 @@
-package mip
+package goop
 
 // Constr represnts a linear constraint of the form x <= y, x >= y, or
 // x == y. Constr uses a left and right hand side expressions along with a

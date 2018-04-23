@@ -1,4 +1,4 @@
-package mip
+package goop
 
 // Integer constants represnting commonly used numbers. Makes for better
 // readability

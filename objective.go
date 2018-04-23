@@ -1,4 +1,4 @@
-package mip
+package goop
 
 // Objective represents an optimization objective given an expression and
 // objective sense (maximize or minimize).

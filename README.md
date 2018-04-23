@@ -25,45 +25,45 @@ package main
 
 import (
     "fmt"
-    "github.com/mit-drl/goop/mip"
-    "github.com/mit-drl/goop/mip/solvers"
+    "github.com/mit-drl/goop"
+    "github.com/mit-drl/goop/solvers"
 )
 
 func main() {
-    // Instantiate a new model
-    m := mip.NewModel()
+	// Instantiate a new model
+	m := goop.NewModel()
 
-    // Add your variables to the model
-    x := m.AddBinaryVar()
-    y := m.AddBinaryVar()
-    z := m.AddBinaryVar()
+	// Add your variables to the model
+	x := m.AddBinaryVar()
+	y := m.AddBinaryVar()
+	z := m.AddBinaryVar()
 
-    // Add your constraints
-    m.AddConstr(mip.Sum(x, y.Mult(2), z.Mult(3)).LessEq(mip.K(4)))
-    m.AddConstr(mip.Sum(x, y).GreaterEq(mip.One))
+	// Add your constraints
+	m.AddConstr(goop.Sum(x, y.Mult(2), z.Mult(3)).LessEq(goop.K(4)))
+	m.AddConstr(goop.Sum(x, y).GreaterEq(goop.One))
 
-    // Set a linear objective using your variables
-    obj := mip.Sum(x, y, z.Mult(2))
-    m.SetObjective(obj, mip.SenseMaximize)
+	// Set a linear objective using your variables
+	obj := goop.Sum(x, y, z.Mult(2))
+	m.SetObjective(obj, goop.SenseMaximize)
 
-    // Optimize the variables according to the model using a Gurobi solver
-    sol, err := m.Optimize(solvers.Gurobi)
+	// Optimize the variables according to the model
+	sol, err := m.Optimize(solvers.Gurobi)
 
-    // Check if there is an error from the solver. No error should be returned
-    // for this model
-    if err != nil {
-    	panic("Should not have an error")
-    }
+	// Check if there is an error from the solver. No error should be returned
+	// for this model
+	if err != nil {
+		panic("Should not have an error")
+	}
 
-    // Print out the solution
-    fmt.Println("x =", sol.Value(x))
-    fmt.Println("y =", sol.Value(y))
-    fmt.Println("z =", sol.Value(z))
+	// Print out the solution
+	fmt.Println("x =", sol.Value(x))
+	fmt.Println("y =", sol.Value(y))
+	fmt.Println("z =", sol.Value(z))
 
-    // Output:
-    // x = 1
-    // y = 0
-    // z = 1
+	// Output:
+	// x = 1
+	// y = 0
+	// z = 1
 }
 ```
 

@@ -1,7 +1,7 @@
-package mip
+package goop
 
 import (
-	"github.com/mit-drl/goop/mip/solvers"
+	"github.com/mit-drl/goop/solvers"
 )
 
 const (

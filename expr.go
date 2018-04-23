@@ -1,4 +1,4 @@
-package mip
+package goop
 
 // Expr represents a linear general expression of the form
 // c0 * x0 + c1 * x1 + ... + cn * xn + k where ci are coefficients and xi are

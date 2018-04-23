@@ -1,10 +1,10 @@
-package mip_test
+package goop_test
 
 import (
 	"fmt"
 
-	"github.com/mit-drl/goop/mip"
-	"github.com/mit-drl/goop/mip/solvers"
+	"github.com/mit-drl/goop"
+	"github.com/mit-drl/goop/solvers"
 )
 
 // This example shows how goop can be used to solve a simple MIP:
@@ -15,7 +15,7 @@ import (
 // MIP being modelled is the same as in http://www.gurobi.com/documentation/7.5/examples/mip1_cpp_cpp.html
 func ExampleModel_simple() {
 	// Instantiate a new model
-	m := mip.NewModel()
+	m := goop.NewModel()
 
 	// Add your variables to the model
 	x := m.AddBinaryVar()
@@ -23,12 +23,12 @@ func ExampleModel_simple() {
 	z := m.AddBinaryVar()
 
 	// Add your constraints
-	m.AddConstr(mip.Sum(x, y.Mult(2), z.Mult(3)).LessEq(mip.K(4)))
-	m.AddConstr(mip.Sum(x, y).GreaterEq(mip.One))
+	m.AddConstr(goop.Sum(x, y.Mult(2), z.Mult(3)).LessEq(goop.K(4)))
+	m.AddConstr(goop.Sum(x, y).GreaterEq(goop.One))
 
 	// Set a linear objective using your variables
-	obj := mip.Sum(x, y, z.Mult(2))
-	m.SetObjective(obj, mip.SenseMaximize)
+	obj := goop.Sum(x, y, z.Mult(2))
+	m.SetObjective(obj, goop.SenseMaximize)
 
 	// Optimize the variables according to the model
 	sol, err := m.Optimize(solvers.Gurobi)
