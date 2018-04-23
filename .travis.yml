@@ -9,5 +9,5 @@ install:
     - ./install.sh
 
 script:
-    - go build
-    - go test -v -tags travis
+    - go build -tags pre_xenial
+    - go test -v -tags pre_xenial travis
