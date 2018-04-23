@@ -25,7 +25,7 @@ package main
 
 import (
     "fmt"
-	"github.com/mit-drl/goop/mip"
+    "github.com/mit-drl/goop/mip"
 	"github.com/mit-drl/goop/mip/solvers"
 )
 
