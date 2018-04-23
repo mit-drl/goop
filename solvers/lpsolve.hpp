@@ -1,13 +1,14 @@
-#ifndef GOOP_GUROBI_HPP_
-#define GOOP_GUROBI_HPP_
+#ifndef GOOP_LPSOLVE_HPP_
+#define GOOP_LPSOLVE_HPP_
 
 #include "base_solver.hpp"
+#include "lp_lib.h"
 
-class GurobiSolver : public Solver
+class LPSolveSolver : public Solver
 {
 public:
-    GurobiSolver();
-    ~GurobiSolver();
+    LPSolveSolver();
+    ~LPSolveSolver();
     void addVars(int count, double *lb, double *ub, char *types);
     void addConstr(
         int lhs_count, double *lhs_coeffs,
@@ -21,10 +22,8 @@ public:
     void setTimeLimit(double timeLimit);
     MIPSolution optimize();
 private:
+    lprec *lp;
     int numVars;
-    GRBEnv env;
-    GRBModel model;
-    GRBVar *vars;
 };
 
 #endif

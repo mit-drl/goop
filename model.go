@@ -104,7 +104,7 @@ func (m *Model) SetObjective(e Expr, sense ObjSense) {
 
 // Optimize optimizes the model using the given solver type and returns the
 // solution or an error.
-func (m *Model) Optimize(solverType solvers.SolverType) (*Solution, error) {
+func (m *Model) Optimize(solver solvers.Solver) (*Solution, error) {
 	lbs := make([]float64, len(m.vars))
 	ubs := make([]float64, len(m.vars))
 	types := new(bytes.Buffer)
@@ -114,17 +114,16 @@ func (m *Model) Optimize(solverType solvers.SolverType) (*Solution, error) {
 		types.WriteByte(byte(v.Type()))
 	}
 
-	mipModel := solvers.NewSolver(solverType)
-	mipModel.ShowLog(m.showLog)
+	solver.ShowLog(m.showLog)
 
 	if m.timeLimit > 0 {
-		mipModel.SetTimeLimit(m.timeLimit.Seconds())
+		solver.SetTimeLimit(m.timeLimit.Seconds())
 	}
 
-	mipModel.AddVars(len(m.vars), &lbs[0], &ubs[0], types.String())
+	solver.AddVars(len(m.vars), &lbs[0], &ubs[0], types.String())
 
 	for _, constr := range m.constrs {
-		mipModel.AddConstr(
+		solver.AddConstr(
 			constr.lhs.NumVars(),
 			getCoeffsPtr(constr.lhs),
 			getVarsPtr(constr.lhs),
@@ -138,7 +137,7 @@ func (m *Model) Optimize(solverType solvers.SolverType) (*Solution, error) {
 	}
 
 	if m.obj != nil {
-		mipModel.SetObjective(
+		solver.SetObjective(
 			m.obj.NumVars(),
 			getCoeffsPtr(m.obj),
 			getVarsPtr(m.obj),
@@ -147,8 +146,8 @@ func (m *Model) Optimize(solverType solvers.SolverType) (*Solution, error) {
 		)
 	}
 
-	mipSol := mipModel.Optimize()
-	defer solvers.DeleteSolver(mipModel)
+	mipSol := solver.Optimize()
+	defer solvers.DeleteSolver(solver)
 
 	if mipSol.GetErrorCode() != 0 {
 		msg := fmt.Sprintf(

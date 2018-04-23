@@ -47,7 +47,7 @@ func main() {
     m.SetObjective(obj, goop.SenseMaximize)
 
     // Optimize the variables according to the model
-    sol, err := m.Optimize(solvers.Gurobi)
+    sol, err := m.Optimize(solvers.NewGurobiSolver())
 
     // Check if there is an error from the solver. No error should be returned
     // for this model

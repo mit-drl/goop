@@ -8,7 +8,7 @@ import (
 	"github.com/mit-drl/goop/solvers"
 )
 
-func TestSimpleMIP(t *testing.T) {
+func solveSimpleMIPModel(t *testing.T, solver solvers.Solver) {
 	m := goop.NewModel()
 	m.ShowLog(true)
 	x := m.AddBinaryVar()
@@ -20,7 +20,7 @@ func TestSimpleMIP(t *testing.T) {
 
 	obj := goop.Sum(x, y, z.Mult(2))
 	m.SetObjective(obj, goop.SenseMaximize)
-	sol, err := m.Optimize(solvers.Gurobi)
+	sol, err := m.Optimize(solver)
 
 	if err != nil {
 		t.Fatal(err)
@@ -31,7 +31,7 @@ func TestSimpleMIP(t *testing.T) {
 	t.Log("z =", sol.Value(z))
 }
 
-func TestSumRowsCols(t *testing.T) {
+func solveSumRowsColsModel(t *testing.T, solver solvers.Solver) {
 	m := goop.NewModel()
 	m.ShowLog(true)
 	rows := 4
@@ -46,7 +46,7 @@ func TestSumRowsCols(t *testing.T) {
 		m.AddConstr(goop.SumRow(vs, i).Eq(goop.One))
 	}
 
-	sol, err := m.Optimize(solvers.Gurobi)
+	sol, err := m.Optimize(solver)
 
 	if err != nil {
 		t.Fatal(err)

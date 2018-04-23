@@ -7,7 +7,8 @@ type SolverType int
 
 // Supported solvers for quick instantiation
 const (
-	Gurobi SolverType = iota
+	Gurobi  SolverType = iota
+	LPSolve SolverType = iota
 )
 
 // NewSolver returns an instantiated solver given the solver type
@@ -15,6 +16,8 @@ func NewSolver(solverType SolverType) Solver {
 	switch solverType {
 	case Gurobi:
 		return NewGurobiSolver()
+	case LPSolve:
+		return NewLPSolveSolver()
 	default:
 		logrus.WithField("solverType", solverType).Panic("Solver type unknown")
 		return nil

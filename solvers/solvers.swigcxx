@@ -3,6 +3,7 @@
 /* Includes the header in the wrapper code */
 #include "base_solver.hpp"
 #include "gurobi.hpp"
+#include "lpsolve.hpp"
 %}
 
 /* Parse the header file to generate wrappers */
@@ -16,3 +17,4 @@ namespace std {
 
 %include "base_solver.hpp"
 %include "gurobi.hpp"
+%include "lpsolve.hpp"

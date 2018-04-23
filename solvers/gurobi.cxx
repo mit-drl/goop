@@ -27,7 +27,8 @@ void GurobiSolver::showLog(bool shouldShow)
 
 }
 
-void GurobiSolver::setTimeLimit(double timeLimit) {
+void GurobiSolver::setTimeLimit(double timeLimit)
+{
     model.getEnv().set(GRB_DoubleParam_TimeLimit, timeLimit);
 }
 

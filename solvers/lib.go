@@ -1,5 +1,7 @@
 package solvers
 
-// #cgo CXXFLAGS: --std=c++11 -I/home/wallar/software/gurobi752/linux64/include -I${SRCDIR}/../include
-// #cgo LDFLAGS: -L/home/wallar/software/gurobi752/linux64/lib -lgurobi_g++5.2 -lgurobi75
+// #cgo CXXFLAGS: --std=c++11 -I${SRCDIR}/../.third_party/gurobi/include
+// #cgo CXXFLAGS: -I${SRCDIR}/../.third_party/lpsolve
+// #cgo LDFLAGS: -L${SRCDIR}/../.third_party/gurobi/lib -lgurobi_g++5.2 -lgurobi75
+// #cgo LDFLAGS: -L${SRCDIR}/../.third_party/lpsolve -llpsolve55
 import "C"
