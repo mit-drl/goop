@@ -11,6 +11,7 @@ func Sum(exprs ...Expr) Expr {
 	for _, e := range exprs {
 		newExpr.Plus(e)
 	}
+
 	return newExpr
 }
 

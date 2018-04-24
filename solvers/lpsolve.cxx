@@ -19,6 +19,14 @@ LPSolveSolver::~LPSolveSolver()
 
 void LPSolveSolver::showLog(bool shouldShow)
 {
+    if (shouldShow)
+    {
+        set_verbose(lp, FULL);
+    }
+    else
+    {
+        set_verbose(lp, NEUTRAL);
+    }
 }
 
 void LPSolveSolver::setTimeLimit(double timeLimit)
@@ -29,6 +37,7 @@ void LPSolveSolver::setTimeLimit(double timeLimit)
 void LPSolveSolver::addVars(int count, double *lb, double *ub, char *types)
 {
     lp = make_lp(0, count);
+    set_verbose(lp, NEUTRAL);
     set_add_rowmode(lp, TRUE);
     numVars = count;
 
@@ -117,7 +126,6 @@ void LPSolveSolver::setObjective(
 MIPSolution LPSolveSolver::optimize()
 {
     MIPSolution sol;
-
     set_add_rowmode(lp, false);
     int res = solve(lp);
     sol.optimal = res == OPTIMAL;

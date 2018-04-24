@@ -10,7 +10,7 @@ import (
 
 func solveSimpleMIPModel(t *testing.T, solver solvers.Solver) {
 	m := goop.NewModel()
-	m.ShowLog(true)
+	m.ShowLog(false)
 	x := m.AddBinaryVar()
 	y := m.AddBinaryVar()
 	z := m.AddBinaryVar()
@@ -33,7 +33,7 @@ func solveSimpleMIPModel(t *testing.T, solver solvers.Solver) {
 
 func solveSumRowsColsModel(t *testing.T, solver solvers.Solver) {
 	m := goop.NewModel()
-	m.ShowLog(true)
+	m.ShowLog(false)
 	rows := 4
 	cols := 4
 	vs := m.AddBinaryVarMatrix(rows, cols)

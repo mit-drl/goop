@@ -37,11 +37,16 @@ func (c K) Constant() float64 {
 // Plus adds the current expression to another and returns the resulting
 // expression
 func (c K) Plus(e Expr) Expr {
-	newExpr := new(LinearExpr)
-	newExpr.vars = append([]uint64{}, e.Vars()...)
-	newExpr.coeffs = append([]float64{}, e.Coeffs()...)
-	newExpr.constant = e.Constant() + c.Constant()
-	return newExpr
+	switch e.(type) {
+	case K:
+		return K(c.Constant() + e.Constant())
+	default:
+		newExpr := new(LinearExpr)
+		newExpr.vars = append([]uint64{}, e.Vars()...)
+		newExpr.coeffs = append([]float64{}, e.Coeffs()...)
+		newExpr.constant = e.Constant() + c.Constant()
+		return newExpr
+	}
 }
 
 // Mult multiplies the current expression to another and returns the

@@ -87,6 +87,11 @@ currently only Gurobi is supported
 ```
 go build
 ```
+Note that due to a quirk with Gurobi, if you are using Ubuntu < 16.04, you must
+build with
+```
+go build -tags pre_xenial
+```
 
 5. (Optional) Test our installation
 ```
