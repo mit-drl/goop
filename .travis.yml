@@ -10,4 +10,7 @@ install:
 
 script:
     - go build -tags pre_xenial
-    - go test -v -tags="pre_xenial travis"
+    - go test -race -coverprofile=coverage.txt -covermode=atomic -v -tags="pre_xenial travis"
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
