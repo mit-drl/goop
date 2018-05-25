@@ -43,5 +43,5 @@ func (s *Solution) Value(v *Var) float64 {
 // and assigned to one. This is a convenience method which should not be
 // super trusted...
 func (s *Solution) IsOne(v *Var) bool {
-	return v.Type() == Integer && s.Value(v) > tinyNum
+	return (v.Type() == Integer || v.Type() == Binary) && s.Value(v) > tinyNum
 }

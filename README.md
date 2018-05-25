@@ -1,7 +1,8 @@
 # Goop [![Go Report Card](https://goreportcard.com/badge/github.com/mit-drl/goop)](https://goreportcard.com/report/github.com/mit-drl/goop) [![Build Status](https://travis-ci.org/mit-drl/goop.svg?branch=master)](https://travis-ci.org/mit-drl/goop) [![Go Doc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=round-square)](https://godoc.org/github.com/mit-drl/goop) [![Maintainability](https://api.codeclimate.com/v1/badges/7bb0cc28fd6d18d2de44/maintainability)](https://codeclimate.com/github/mit-drl/goop/maintainability) [![codecov](https://codecov.io/gh/mit-drl/goop/branch/master/graph/badge.svg)](https://codecov.io/gh/mit-drl/goop)
 
 General Linear Optimization in Go. `goop` provides general interface for solving
-mixed integer linear optimization problems using a variety of back-end solvers.
+mixed integer linear optimization problems using a variety of back-end solvers
+including LPSolve and Gurobi.
 
 # Quickstart
 
