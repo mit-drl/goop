@@ -1,6 +1,10 @@
 sudo: required
 language: go
 
+addons:
+    apt:
+        update: true
+
 go:
     - 1.9
 
