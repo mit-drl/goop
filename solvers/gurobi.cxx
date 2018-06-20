@@ -14,6 +14,11 @@ GurobiSolver::~GurobiSolver()
     delete[] vars;
 }
 
+void GurobiSolver::setMIPGapTol(double gap)
+{
+    model.set(GRB_DoubleParam_MIPGap, gap);
+}
+
 void GurobiSolver::showLog(bool shouldShow)
 {
     if (shouldShow)
