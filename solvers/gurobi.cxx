@@ -75,7 +75,7 @@ void GurobiSolver::setObjective(int count, double *coeffs, uint64 *var_ids,
         double constant, int sense)
 {
     GRBLinExpr expr = constant;
-    GRBVar vs[count];
+    GRBVar *vs = new GRBVar[count];
 
     for (int i = 0; i < count; i++)
     {
@@ -84,6 +84,7 @@ void GurobiSolver::setObjective(int count, double *coeffs, uint64 *var_ids,
 
     expr.addTerms(coeffs, vs, count);
     model.setObjective(expr, sense);
+    delete[] vs;
 }
 
 MIPSolution GurobiSolver::optimize()
