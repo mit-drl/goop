@@ -19,6 +19,11 @@ void GurobiSolver::setMIPGapTol(double gap)
     model.set(GRB_DoubleParam_MIPGap, gap);
 }
 
+void GurobiSolver::setConcurrentMIP(int numMips)
+{
+    model.set(GRB_IntParam_ConcurrentMIP, numMips);
+}
+
 void GurobiSolver::showLog(bool shouldShow)
 {
     if (shouldShow)
