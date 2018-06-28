@@ -24,6 +24,11 @@ void GurobiSolver::setConcurrentMIP(int numMips)
     model.set(GRB_IntParam_ConcurrentMIP, numMips);
 }
 
+void GurobiSolver::setThreads(int numThreads)
+{
+    model.set(GRB_IntParam_Threads, numThreads);
+}
+
 void GurobiSolver::showLog(bool shouldShow)
 {
     if (shouldShow)

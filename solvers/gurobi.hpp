@@ -10,6 +10,7 @@ public:
     ~GurobiSolver();
     void setMIPGapTol(double gap);
     void setConcurrentMIP(int numMips);
+    void setThreads(int numThreads);
     void addVars(int count, double *lb, double *ub, char *types);
     void addConstr(
         int lhs_count, double *lhs_coeffs,
