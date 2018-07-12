@@ -1,6 +1,7 @@
 #ifndef GOOP_GUROBI_HPP_
 #define GOOP_GUROBI_HPP_
 
+#include "gurobi_c++.h"
 #include "base_solver.hpp"
 
 class GurobiSolver : public Solver

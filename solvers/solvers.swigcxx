@@ -2,19 +2,14 @@
 %{
 /* Includes the header in the wrapper code */
 #include "base_solver.hpp"
+#include "solution.hpp"
 #include "gurobi.hpp"
 #include "lpsolve.hpp"
 %}
 
-/* Parse the header file to generate wrappers */
-%include <typemaps.i>
-%include "std_vector.i"
-%include "std_string.i"
-
-namespace std {
-    %template(DoubleVector) vector<double>;
-}
+%include "solvers_typemaps.i"
 
 %include "base_solver.hpp"
+%include "solution.hpp"
 %include "gurobi.hpp"
 %include "lpsolve.hpp"

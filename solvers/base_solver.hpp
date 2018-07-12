@@ -1,34 +1,14 @@
 #ifndef RS_Solver_HPP
 #define RS_Solver_HPP
 
-#include "gurobi_c++.h"
 #include <iostream>
 #include <vector>
 #include <string>
+#include "solution.hpp"
 
 using namespace std;
 
 #define uint64 unsigned long long
-
-struct MIPSolution
-{
-    vector<double> values;
-    double obj;
-    double gap;
-    bool optimal;
-    int errorCode;
-    string errorMessage;
-
-    double getValue(int i)
-    {
-        return values.at(i);
-    }
-
-    ~MIPSolution()
-    {
-    }
-};
-
 
 class Solver
 {
