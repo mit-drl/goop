@@ -9,7 +9,6 @@ class GurobiSolver : public Solver
 public:
     GurobiSolver();
     ~GurobiSolver();
-    void setMethod(int method);
     void setMIPGapTol(double gap);
     void setConcurrentMIP(int numMips);
     void setThreads(int numThreads);
