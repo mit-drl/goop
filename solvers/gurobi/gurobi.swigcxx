@@ -1,36 +1,11 @@
 %module gurobi
 %{
 /* Includes the header in the wrapper code */
-//#include "base_solver.hpp"
-//#include "solution.hpp"
+#include "../base_solver.hpp"
+#include "../solution.hpp"
 #include "gurobi.hpp"
 %}
 
-%include "solvers_typemaps.i"
-
-// %ignore MIPSolution;
-%rename(Wrapped_GurobiSolver) GurobiSolver;
-%rename(Wrapped_optimize) GurobiSolver::optimize();
-
-%include "base_solver.hpp"
-%include "solution.hpp"
+%include "../solvers_typemaps.i"
+%include "../base_solver.hpp"
 %include "gurobi.hpp"
-
-%go_import("github.com/mit-drl/goop/solvers")
-
-%insert(go_wrapper) %{
-type GurobiSolver interface {
-Wrapped_GurobiSolver
-Optimize() solvers.MIPSolution
-}
-
-func (arg SwigcptrWrapped_GurobiSolver) Optimize() solvers.MIPSolution {
-     // return arg.Wrapped_optimize()
-     return nil
-}
-
-func NewGurobiSolver() GurobiSolver {
-    return NewWrapped_GurobiSolver()
-}
-
-%}

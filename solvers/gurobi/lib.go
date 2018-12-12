@@ -4,7 +4,9 @@ package gurobi
 // #cgo CXXFLAGS: -I${SRCDIR}/..
 // #cgo LDFLAGS: -L${SRCDIR}/../../.third_party/gurobi/lib -lgurobi_g++5.2 -lgurobi75
 import "C"
-import "github.com/mit-drl/goop/solvers"
+import (
+	"github.com/mit-drl/goop/solvers"
+)
 
 var (
 	_ solvers.Solver = NewGurobiSolver()
