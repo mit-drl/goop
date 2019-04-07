@@ -10,6 +10,7 @@ public:
     GurobiSolver();
     ~GurobiSolver();
     void setMethod(int method);
+    void setMIPFocus(int focus);
     void setMIPGapTol(double gap);
     void setConcurrentMIP(int numMips);
     void setThreads(int numThreads);

@@ -14,8 +14,14 @@ GurobiSolver::~GurobiSolver()
     delete[] vars;
 }
 
-void GurobiSolver::setMethod(int method) {
+void GurobiSolver::setMethod(int method)
+{
     model.set(GRB_IntParam_Method, method);
+}
+
+void GurobiSolver::setMIPFocus(int focus)
+{
+    model.set(GRB_IntParam_MIPFocus, focus);
 }
 
 void GurobiSolver::setMIPGapTol(double gap)
