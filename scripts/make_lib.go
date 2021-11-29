@@ -21,6 +21,17 @@ type MakeLibFlags struct {
 
 }
 
+type GurobiVersionInfo struct {
+	MajorVersion    int
+	MinorVersion    int
+	TertiaryVersion int
+}
+
+type LPSolveVersionInfo struct {
+	MajorVersion int
+	MinorVersion int
+}
+
 func GetDefaultMakeLibFlags() (MakeLibFlags, error) {
 	// Create Default Struct
 	mlf := MakeLibFlags{
@@ -62,12 +73,6 @@ func GetDefaultMakeLibFlags() (MakeLibFlags, error) {
 
 	return mlf, nil
 
-}
-
-type GurobiVersionInfo struct {
-	MajorVersion    int
-	MinorVersion    int
-	TertiaryVersion int
 }
 
 /*
@@ -212,7 +217,11 @@ func CreateCXXFlagsDirective(mlfIn MakeLibFlags) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("// #cgo CXXFLAGS: --std=c++11 -I%v/include -I%v/include\n", mlfIn.GurobiHome, pwd), nil
+
+	gurobiCXXFlagsString := fmt.Sprintf("// #cgo CXXFLAGS: --std=c++11 -I%v/include -I%v/include\n", mlfIn.GurobiHome, pwd)
+	lpSolveCXXFlagsString := "// #cgo CXXFLAGS: -I/usr/local/opt/lp_solve/include\n" // Works as long as lp_solve was installed with Homebrew
+
+	return fmt.Sprintf("%v%v", gurobiCXXFlagsString, lpSolveCXXFlagsString), nil
 }
 
 /*
@@ -251,15 +260,13 @@ func CreateLDFlagsDirective(mlfIn MakeLibFlags) (string, error) {
 		ldFlagsDirective = fmt.Sprintf("%v -l%v", ldFlagsDirective, target)
 	}
 	ldFlagsDirective = fmt.Sprintf("%v \n", ldFlagsDirective)
-	// for _, content := range libContent {
-	// 	// Check to see if content's name contains the targeted filenames
-	// 	for _, target := range targetedFilenames {
-	// 		if strings.Contains(content.Name(), target) {
-	// 			// Add this value to the l string
 
-	// 		}
-	// 	}
-	// }
+	// Write the lp_solve LD Flags line.
+	lvi, err := DetectLPSolveVersion()
+	if err != nil {
+		return "", err
+	}
+	ldFlagsDirective = fmt.Sprintf("%v// #cgo LDFLAGS: -L/usr/local/opt/lp_solve/lib -llpsolve%v%v\n", ldFlagsDirective, lvi.MajorVersion, lvi.MinorVersion)
 
 	return ldFlagsDirective, nil
 }
@@ -270,6 +277,70 @@ func (mlf *MakeLibFlags) ToGurobiVersionInfo() (GurobiVersionInfo, error) {
 	GurobiDirNameIndexEnd := len(mlf.GurobiHome) - len("/mac64") - 1
 
 	return StringToGurobiVersionInfo(string(mlf.GurobiHome[GurobiWordIndexStart : GurobiDirNameIndexEnd+1]))
+
+}
+
+/*
+HeaderNameToLPSolveVersionInfo
+Description:
+	Converts the header file (like liblpsolve55.a) into an LPSolveVersionInfo object which can be used later.
+*/
+func HeaderNameToLPSolveVersionInfo(lpsolveHeaderName string) (LPSolveVersionInfo, error) {
+	//Locate major and minor version indices in gurobi directory name
+	majorVersionAsString := string(lpsolveHeaderName[len("liblpsolve")])
+	minorVersionAsString := string(lpsolveHeaderName[len("liblpsolve")+1])
+
+	// Convert using strconv to integers
+	majorVersion, err := strconv.Atoi(majorVersionAsString)
+	if err != nil {
+		return LPSolveVersionInfo{}, err
+	}
+
+	minorVersion, err := strconv.Atoi(minorVersionAsString)
+	if err != nil {
+		return LPSolveVersionInfo{}, err
+	}
+
+	return LPSolveVersionInfo{
+		MajorVersion: majorVersion,
+		MinorVersion: minorVersion,
+	}, nil
+
+}
+
+func GetAHeaderFilenameFrom(dirName string) (string, error) {
+	// Constants
+
+	// Algorithm
+
+	// Search through dirName directory for all instances of .a files
+	libraryContents, err := os.ReadDir(dirName)
+	if err != nil {
+		return "", err
+	}
+	headerNames := []string{}
+	for _, content := range libraryContents {
+		if content.Type().IsRegular() && strings.Contains(content.Name(), ".a") {
+			fmt.Println(content.Name())
+			headerNames = append(headerNames, content.Name())
+		}
+	}
+
+	return headerNames[0], nil
+
+}
+
+func DetectLPSolveVersion() (LPSolveVersionInfo, error) {
+	// Constants
+	homebrewLPSolveDirectory := "/usr/local/opt/lp_solve"
+
+	// Algorithm
+	headerFilename, err := GetAHeaderFilenameFrom(fmt.Sprintf("%v/lib/", homebrewLPSolveDirectory))
+	if err != nil {
+		return LPSolveVersionInfo{}, err
+	}
+
+	return HeaderNameToLPSolveVersionInfo(headerFilename)
 
 }
 
